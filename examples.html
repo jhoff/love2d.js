@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>Game</title>
+        <!-- Any commonjs compliant dependency loader should be usable -->
+        <!-- In this case, we're using LinkedIn's Inject ( https://github.com/linkedin/inject ) -->
+        <script src="../inject.min.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body id="body" onload="">
+        <div style="width:600px; height: 300px; margin:50px auto;">
+            <canvas id="lovewindow" width="600" height="300" style="background-color:#000;"></canvas>
+        </div>
+        <script type="text/javascript" charset="utf-8">
+            // Inject specific code:
+            Inject.setModuleRoot(".");          // Location of your scripts
+            Inject.setExpires(0);               // No client side caching during development
+            Inject.clearCache();                // Ensure local cache is clear during development
+            require.run("examples/helloWorld"); // Run code
+        </script>
+    </body>
+</html>
