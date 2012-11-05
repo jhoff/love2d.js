@@ -1,8 +1,8 @@
-## Love2d.js
+# Love2d.js
 
 A HTML5 Canvas implementation of [Löve2d](http://love2d.org) in Javascript.
 
-### Goal
+## Goal
 
 The goal of this project is to implement the [löve2d api](https://love2d.org/wiki/Main_Page) in pure javascript, using the same approach and design model.
 
@@ -10,16 +10,16 @@ This is **NOT** a recomplied port of löve2d, it is rewritten from scratch.
 
 This is **NOT** intended to run existing .lua files, recompiled or otherwise.
 
-### Dependencies
+## Dependencies
 
 * Dependency Injection framework that is commonjs compliant
     * Currently written to work with [linkedin/inject](https://github.com/linkedin/inject), but it should work with others.
 
-### Open for pull requests
+## Open for pull requests
 
-If this is a project you'd like to see completed, I'm currently accepting all pull requests.
+If this is a project you'd like to see completed, I'm currently accepting pull requests.
 
-### Current Status
+## Current Status
 
 * **love** `partially implemented`
     * **love.draw** `complete`
