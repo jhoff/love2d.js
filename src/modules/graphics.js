@@ -46,6 +46,18 @@ graphics.prototype.print = function( text, x, y, r, sx, sy, ox, oy, kx, ky ) {
     love.context.restore();
 }
 
+graphics.prototype.clear = function() {
+    // Store the current transformation matrix
+    love.context.save();
+
+    // Use the identity matrix while clearing the canvas
+    love.context.setTransform(1, 0, 0, 1, 0, 0);
+    love.context.clearRect(0, 0, love.canvas.width, love.canvas.height);
+
+    // Restore the transform
+    love.context.restore();
+}
+
 graphics.prototype.setColor = function( r, g, b, a ) {
     this.color = [r,g,b,a];
 }
@@ -87,4 +99,4 @@ graphics.prototype._traceCoords = function( args /* x1, y1, x2, y2, ... */ ) {
     }
 }
 
-exports.graphics = graphics;
+module.exports = graphics;

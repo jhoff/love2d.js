@@ -23,16 +23,17 @@ If this is a project you'd like to see completed, I'm currently accepting pull r
 
 * **love** `partially implemented`
     * **love.draw** `complete`
-    * ~~love.focus~~
+    * **love.focus** `complete`
+        * Note: Browser focus support is not fully supported
     * ~~love.joystickpressed~~
     * ~~love.joystickreleased~~
     * ~~love.keypressed~~
     * ~~love.keyreleased~~
-    * ~~love.load~~
+    * **love.load** `complete`
     * ~~love.mousepressed~~
     * ~~love.mousereleased~~
     * ~~love.quit~~
-    * ~~love.run~~
+    * **love.run** `complete`
     * **love.update** `complete`
 * ~~love.audio~~
 * ~~love.event~~
@@ -42,7 +43,7 @@ If this is a project you'd like to see completed, I'm currently accepting pull r
     * ~~love.graphics.arc~~
     * ~~love.graphics.checkMode~~
     * **love.graphics.circle** `complete`
-    * ~~love.graphics.clear~~
+    * **love.graphics.clear** `complete`
     * ~~love.graphics.draw~~
     * ~~love.graphics.drawq~~
     * ~~love.graphics.getBackgroundColor~~
@@ -126,7 +127,7 @@ If this is a project you'd like to see completed, I'm currently accepting pull r
 * ~~love.physics~~
 * ~~love.sound~~
 * ~~love.thread~~
-* ~~love.timer~~
+* **love.timer** `complete`
 
 ### License
 

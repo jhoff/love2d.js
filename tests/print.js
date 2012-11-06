@@ -20,7 +20,7 @@ module.exports = {
         y: 0.1
     },
     speed: (Math.random() * 100) + 100,
-    text: "Javascript is cool!",
+    text: "Love2d.js is cool!",
     rotation: 0,
     update: function(dt) {
         if( this.position.x <= 0 ) {

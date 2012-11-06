@@ -1,41 +1,75 @@
-var gameloop = require('./utils/gameloop');
-var graphics = require('./graphics');
+// polyfills
+require('./utils/polyfills');
 
-var love = function(canvas, draw, update, fullscreen){
+//modules
+var graphics = require('./modules/graphics');
+var timer = require('./modules/timer');
+
+var love = function(canvas){
     var self = this;
+
     this.resetCSS();
 
     this.canvas = document.getElementById(canvas);
     this.context = this.canvas.getContext('2d');
 
-    this.graphics = new graphics.graphics();
+    this.graphics = new graphics();
+    this.timer = new timer();
 
-    if( fullscreen ) {
-        this.canvas.width = this.getDocumentWidth();
-        this.canvas.height = this.getDocumentHeight();
-    }
+    window.visibly.onVisible(function() {
+        if( typeof(self.focus) == 'function' ) self.focus(true);
+    });
 
-    var lovedraw = function() {
-        self.clearCanvas();
-        draw();
-    }
+    window.visibly.onHidden(function() {
+        if( typeof(self.focus) == 'function' ) self.focus(false);
+    });
 
-    this.gameloop = new gameloop.loop();
-    setTimeout(function() {
-        self.gameloop.start(lovedraw, update);
-    },1);
 }
 
-love.prototype.clearCanvas = function() {
-    // Store the current transformation matrix
-    this.context.save();
+love.prototype.run = function() {
+    var love = this;
 
-    // Use the identity matrix while clearing the canvas
-    this.context.setTransform(1, 0, 0, 1, 0, 0);
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    if( typeof(love.load) == 'function' ) love.load();
 
-    // Restore the transform
-    this.context.restore();
+    var dt = 0;
+
+    // Main loop time.
+    var whiletruedo = function() {
+
+        // -- Process events.
+        // if love.event then
+        //     love.event.pump()
+        //     for e,a,b,c,d in love.event.poll() do
+        //         if e == "quit" then
+        //             if not love.quit or not love.quit() then
+        //                 if love.audio then
+        //                     love.audio.stop()
+        //                 end
+        //                 return
+        //             end
+        //         end
+        //         love.handlers[e](a,b,c,d)
+        //     end
+        // end
+
+        // Update dt, as we'll be passing it to update
+        if( love.timer ) {
+            love.timer.step();
+            dt = love.timer.getDelta();
+        }
+
+        // Call update and draw
+        if( love.update ) love.update(dt); // will pass 0 if love.timer is disabled
+        if( love.graphics ) {
+            love.graphics.clear()
+            if( love.draw ) love.draw();
+        }
+
+        if( love.timer ) love.timer.sleep( 0.001, function() {
+            requestAnimFrame( whiletruedo );
+        });
+    };
+    whiletruedo();
 }
 
 love.prototype.resetCSS = function() {
@@ -49,24 +83,6 @@ love.prototype.resetCSS = function() {
         style.innerHTML = css;
         document.getElementsByTagName('HEAD')[0].appendChild(style);
     }
-}
-
-love.prototype.getDocumentWidth = function() {
-    var D = document;
-    return Math.max(
-        Math.max(D.body.scrollWidth, D.documentElement.scrollWidth),
-        Math.max(D.body.offsetWidth, D.documentElement.offsetWidth),
-        Math.max(D.body.clientWidth, D.documentElement.clientWidth)
-    );
-}
-
-love.prototype.getDocumentHeight = function() {
-    var D = document;
-    return Math.max(
-        Math.max(D.body.scrollHeight, D.documentElement.scrollHeight),
-        Math.max(D.body.offsetHeight, D.documentElement.offsetHeight),
-        Math.max(D.body.clientHeight, D.documentElement.clientHeight)
-    );
 }
 
 love.prototype.throwError = function(msg) {
